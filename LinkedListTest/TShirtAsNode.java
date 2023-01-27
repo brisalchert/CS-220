@@ -1,5 +1,3 @@
-//package LinkedListTest;
-
 public class TShirtAsNode {
     public double tShirtPrice;
     public TShirtAsNode next;
