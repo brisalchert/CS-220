@@ -19,11 +19,11 @@ public class LinkedListTest {
         TShirtAsNode fifthShirt = new TShirtAsNode();
         fifthShirt.setPrice(4);
 
+        TShirtAsNode head = firstShirt;
         firstShirt.next = secondShirt;
         secondShirt.next = thirdShirt;
         thirdShirt.next = fourthShirt;
         fourthShirt.next = fifthShirt;
-        TShirtAsNode head = firstShirt;
 
         TShirtAsNode current = head;
         int counter = 0;
