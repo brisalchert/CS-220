@@ -28,6 +28,7 @@ public class LinkedListTest {
         TShirtAsNode current = head;
         int counter = 0;
 
+        // Print the list
         while (current != null) {
             counter++;
 
@@ -61,11 +62,36 @@ public class LinkedListTest {
 
         current = head;
 
+        // Print the reversed list
         while (current != null) {
             System.out.println("Price of T-shirt #" + counter + ": "
                     + currency.format(current.getPrice()));
 
             counter--;
+
+            current = current.next;
+        }
+
+        System.out.println();
+
+        // Remove item 3 from the list
+        // Iterate through to prev node (prev is currently set to head)
+
+        while (prev.next != thirdShirt) {
+            prev = prev.next;
+        }
+
+        // Set pointer for item 2 to item 4
+        prev.next = prev.next.next;
+
+        current = head;
+
+        // Print the list
+        while (current != null) {
+            counter++;
+
+            System.out.println("Price of T-shirt #" + counter + ": "
+                    + currency.format(current.getPrice()));
 
             current = current.next;
         }
