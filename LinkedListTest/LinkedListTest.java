@@ -29,10 +29,43 @@ public class LinkedListTest {
         int counter = 0;
 
         while (current != null) {
-            System.out.println("Price of T-shirt #" + (counter + 1) + ": "
+            counter++;
+
+            System.out.println("Price of T-shirt #" + counter + ": "
                 + currency.format(current.getPrice()));
 
-            counter++;
+            current = current.next;
+        }
+
+        System.out.println();
+
+        // Create references for reversing the list
+        current = head;
+        TShirtAsNode prev = null;
+        TShirtAsNode temp;
+
+        // Reverse the list
+        while (current != null) {
+            // Set temp to the next node
+            temp = current.next;
+            // Reverse the pointer of the current node
+            current.next = prev;
+
+            // Move references forward
+            prev = current;
+            current = temp;
+        }
+
+        // Set new head node
+        head = prev;
+
+        current = head;
+
+        while (current != null) {
+            System.out.println("Price of T-shirt #" + counter + ": "
+                    + currency.format(current.getPrice()));
+
+            counter--;
 
             current = current.next;
         }
