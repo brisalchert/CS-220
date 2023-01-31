@@ -29,7 +29,7 @@ public class LinkedListTest {
         int counter = 0;
 
         while (current != null) {
-            System.out.println("Price of T-shirt #" + counter + ": "
+            System.out.println("Price of T-shirt #" + (counter + 1) + ": "
                 + currency.format(current.getPrice()));
 
             counter++;
