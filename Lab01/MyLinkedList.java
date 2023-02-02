@@ -23,13 +23,12 @@ public class MyLinkedList {
         this.index = 0;
 
         // Traverse the list to the correct index
-        while (this.index > index) {
-            if (current.next == null) {
+        while (this.index < index) {
+            current = current.next;
+            this.index++;
+
+            if (current == null) {
                 return -1;
-            }
-            else {
-                current = current.next;
-                this.index++;
             }
         }
 
