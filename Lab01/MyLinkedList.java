@@ -100,17 +100,29 @@ public class MyLinkedList {
             this.index++;
         }
 
-        // Set the new node's next pointer
-        newNode.next = current.next;
+        // Check if new node should be head node
+        if (index == 0) {
+            addAtHead(val);
+        }
+        else {
+            // Check if new node should be tail node
+            if (index == (size - 1)) {
+                addAtTail(val);
+            }
+            else {
+                // Set the new node's next pointer
+                newNode.next = current.next;
 
-        // Set the new node's prev pointer
-        newNode.prev = current;
+                // Set the new node's prev pointer
+                newNode.prev = current;
 
-        // Set the current node's next pointer
-        current.next = newNode;
+                // Set the current node's next pointer
+                current.next = newNode;
 
-        // Set the next node's prev pointer
-        newNode.next.prev = newNode;
+                // Set the next node's prev pointer
+                newNode.next.prev = newNode;
+            }
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------
