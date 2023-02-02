@@ -68,7 +68,32 @@ public class MyLinkedList {
     // Appends to the end of the list if the index is equal to the length of the list
     // Does not insert the node if index is greater than the length of the list
     public void addAtIndex(int index, int val) {
+        MyLinkedList newNode = new MyLinkedList(val);
+        current = head;
+        this.index = 0;
 
+        // Traverse the list to the node before the specified index
+        while (this.index < (index - 1)) {
+            current = current.next;
+            this.index++;
+
+            if (current == null) {
+                System.out.println("Could not insert node at index " + index + ": index too large");
+                return;
+            }
+        }
+
+        // Set the new node's next pointer
+        newNode.next = current.next;
+
+        // Set the new node's prev pointer
+        newNode.prev = current;
+
+        // Set the current node's next pointer
+        current.next = newNode;
+
+        // Set the next node's prev pointer
+        newNode.next.prev = newNode;
     }
 
     // Deletes the node at the specified index in the list
