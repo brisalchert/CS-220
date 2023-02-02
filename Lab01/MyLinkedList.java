@@ -22,7 +22,7 @@ public class MyLinkedList {
     // Returns -1 if the index is invalid
     public int get(int index) {
         // Check validity of index
-        if (index > (size - 1)) {
+        if (index > (size - 1) || index < 0) {
             return -1;
         }
 
@@ -74,7 +74,7 @@ public class MyLinkedList {
     // Does not insert the node if index is greater than the length of the list
     public void addAtIndex(int index, int val) {
         // Check validity of index
-        if (index > (size - 1)) {
+        if (index > (size - 1) || index < 0) {
             System.out.println("Could not insert node at index " + index + ": index too large");
             return;
         }
