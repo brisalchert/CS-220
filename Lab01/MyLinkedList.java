@@ -5,6 +5,7 @@ public class MyLinkedList {
     private MyLinkedList prev;
     private MyLinkedList head;
     private MyLinkedList tail;
+    private MyLinkedList current;
 
     // Constructor: sets up a MyLinkedList node with val
     public MyLinkedList(int val) {
@@ -18,7 +19,7 @@ public class MyLinkedList {
     // Returns the value of val at the node with the specified index in the linked list
     // Returns -1 if the index is invalid
     public int get(int index) {
-        MyLinkedList current = head;
+        current = head;
         this.index = 0;
 
         // Traverse the list to the correct index
