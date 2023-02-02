@@ -1,3 +1,9 @@
+//----------------------------------------------------------------------------------------------------------------------
+//  MyLinkedList.java               Author: Brian Salchert
+//
+//  The MyLinkedList class provides methods for initializing and manipulating a doubly-linked list
+//----------------------------------------------------------------------------------------------------------------------
+
 public class MyLinkedList {
     private int val;
     private int index;
@@ -9,7 +15,7 @@ public class MyLinkedList {
     private MyLinkedList current;
 
     //------------------------------------------------------------------------------------------------------------------
-    // Constructor: sets up a MyLinkedList node with val
+    //  Constructor: sets up a MyLinkedList node with val
     //------------------------------------------------------------------------------------------------------------------
     public MyLinkedList(int val) {
         this.val = val;
@@ -21,8 +27,8 @@ public class MyLinkedList {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    // Returns the value of val at the node with the specified index in the linked list
-    // Returns -1 if the index is invalid
+    //  Returns the value of val at the node with the specified index in the linked list
+    //  Returns -1 if the index is invalid
     //------------------------------------------------------------------------------------------------------------------
     public int get(int index) {
         // Check validity of index
@@ -44,7 +50,7 @@ public class MyLinkedList {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    // Adds a node with value val at the head of the linked list
+    //  Adds a node with value val at the head of the linked list
     //------------------------------------------------------------------------------------------------------------------
     public void addAtHead(int val) {
         MyLinkedList newNode = new MyLinkedList(val);
@@ -62,7 +68,7 @@ public class MyLinkedList {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    // Appends a node with value val at the tail of the linked list
+    //  Appends a node with value val at the tail of the linked list
     //------------------------------------------------------------------------------------------------------------------
     public void addAtTail(int val) {
         MyLinkedList newNode = new MyLinkedList(val);
@@ -80,9 +86,9 @@ public class MyLinkedList {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    // Adds a node with value val at the specified index of the linked list
-    // Appends to the end of the list if the index is equal to the length of the list
-    // Does not insert the node if index is greater than the length of the list
+    //  Adds a node with value val at the specified index of the linked list
+    //  Appends to the end of the list if the index is equal to the length of the list
+    //  Does not insert the node if index is greater than the length of the list
     //------------------------------------------------------------------------------------------------------------------
     public void addAtIndex(int index, int val) {
         // Check validity of index
@@ -129,7 +135,7 @@ public class MyLinkedList {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    // Deletes the node at the specified index in the list
+    //  Deletes the node at the specified index in the list
     //------------------------------------------------------------------------------------------------------------------
     public void deleteAtIndex(int index) {
         // Check validity of the index
