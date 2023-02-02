@@ -52,7 +52,16 @@ public class MyLinkedList {
 
     // Appends a node with value val at the tail of the linked list
     public void addAtTail(int val) {
+        MyLinkedList newNode = new MyLinkedList(val);
 
+        // Set the new node's prev node
+        newNode.prev = tail;
+
+        // Set the prev tail's next node
+        tail.next = newNode;
+
+        // Set the new node to be the new tail
+        tail = newNode;
     }
 
     // Adds a node with value val at the specified index of the linked list
