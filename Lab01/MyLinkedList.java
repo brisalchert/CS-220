@@ -48,7 +48,6 @@ public class MyLinkedList {
     //------------------------------------------------------------------------------------------------------------------
     public void addAtHead(int val) {
         MyLinkedList newNode = new MyLinkedList(val);
-        size++;
 
         // Set the new node's pointer to the current head node
         newNode.next = head;
@@ -58,6 +57,8 @@ public class MyLinkedList {
 
         // Set the old head node's prev node
         newNode.next.prev = newNode;
+
+        size++;
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -65,7 +66,6 @@ public class MyLinkedList {
     //------------------------------------------------------------------------------------------------------------------
     public void addAtTail(int val) {
         MyLinkedList newNode = new MyLinkedList(val);
-        size++;
 
         // Set the new node's prev node
         newNode.prev = tail;
@@ -75,6 +75,8 @@ public class MyLinkedList {
 
         // Set the new node to be the new tail
         tail = newNode;
+
+        size++;
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -90,7 +92,6 @@ public class MyLinkedList {
         }
 
         MyLinkedList newNode = new MyLinkedList(val);
-        size++;
         current = head;
         this.index = 0;
 
@@ -121,6 +122,8 @@ public class MyLinkedList {
 
                 // Set the next node's prev pointer
                 newNode.next.prev = newNode;
+
+                size++;
             }
         }
     }
@@ -129,6 +132,27 @@ public class MyLinkedList {
     // Deletes the node at the specified index in the list
     //------------------------------------------------------------------------------------------------------------------
     public void deleteAtIndex(int index) {
+        // Check validity of the index
+        if (index > (size - 1) || index < 0) {
+            System.out.println("Cannot delete node: index " + index + " is invalid");
+            return;
+        }
 
+        current = head;
+        this.index = 0;
+
+        // Traverse list to the node before the specified index
+        while (this.index < (index - 1)) {
+            current = current.next;
+            this.index++;
+        }
+
+        // Set new next pointer for prev node
+        current.next = current.next.next;
+
+        // Set new prev pointer for next node
+        current.next.prev = current;
+
+        size--;
     }
 }
