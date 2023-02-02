@@ -39,7 +39,16 @@ public class MyLinkedList {
 
     // Adds a node with value val at the head of the linked list
     public void addAtHead(int val) {
+        MyLinkedList newNode = new MyLinkedList(val);
 
+        // Set the new node's pointer to the current head node
+        newNode.next = head;
+
+        // Set the new node as the new head node
+        head = newNode;
+
+        // Set the old head node's prev node
+        newNode.next.prev = newNode;
     }
 
     // Appends a node with value val at the tail of the linked list
