@@ -1,3 +1,9 @@
+//----------------------------------------------------------------------------------------------------------------------
+//  LinkedListDriver.java               Author: Brian Salchert
+//
+//  Driver class for MyLinkedList.java
+//----------------------------------------------------------------------------------------------------------------------
+
 public class LinkedListDriver {
     public static void main (String[] args) {
         MyLinkedList myLinkedList = new MyLinkedList(0);
