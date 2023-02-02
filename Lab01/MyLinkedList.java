@@ -1,6 +1,7 @@
 public class MyLinkedList {
     private int val;
     private int index;
+    private int size;
     private MyLinkedList next;
     private MyLinkedList prev;
     private MyLinkedList head;
@@ -10,6 +11,7 @@ public class MyLinkedList {
     // Constructor: sets up a MyLinkedList node with val
     public MyLinkedList(int val) {
         this.val = val;
+        size = 1;
         next = null;
         prev = null;
         head = this;
@@ -19,6 +21,11 @@ public class MyLinkedList {
     // Returns the value of val at the node with the specified index in the linked list
     // Returns -1 if the index is invalid
     public int get(int index) {
+        // Check validity of index
+        if (index > (size - 1)) {
+            return -1;
+        }
+
         current = head;
         this.index = 0;
 
@@ -26,10 +33,6 @@ public class MyLinkedList {
         while (this.index < index) {
             current = current.next;
             this.index++;
-
-            if (current == null) {
-                return -1;
-            }
         }
 
         // Return the value of val
@@ -39,6 +42,7 @@ public class MyLinkedList {
     // Adds a node with value val at the head of the linked list
     public void addAtHead(int val) {
         MyLinkedList newNode = new MyLinkedList(val);
+        size++;
 
         // Set the new node's pointer to the current head node
         newNode.next = head;
@@ -53,6 +57,7 @@ public class MyLinkedList {
     // Appends a node with value val at the tail of the linked list
     public void addAtTail(int val) {
         MyLinkedList newNode = new MyLinkedList(val);
+        size++;
 
         // Set the new node's prev node
         newNode.prev = tail;
@@ -68,7 +73,14 @@ public class MyLinkedList {
     // Appends to the end of the list if the index is equal to the length of the list
     // Does not insert the node if index is greater than the length of the list
     public void addAtIndex(int index, int val) {
+        // Check validity of index
+        if (index > (size - 1)) {
+            System.out.println("Could not insert node at index " + index + ": index too large");
+            return;
+        }
+
         MyLinkedList newNode = new MyLinkedList(val);
+        size++;
         current = head;
         this.index = 0;
 
@@ -76,11 +88,6 @@ public class MyLinkedList {
         while (this.index < (index - 1)) {
             current = current.next;
             this.index++;
-
-            if (current == null) {
-                System.out.println("Could not insert node at index " + index + ": index too large");
-                return;
-            }
         }
 
         // Set the new node's next pointer
