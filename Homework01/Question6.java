@@ -7,6 +7,41 @@
 
 public class Question6 {
     public static void main (String[] args) {
+        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
+        // Print the input matrix
+        System.out.print("Input matrix:\t");
+        printMatrix(matrix);
+        System.out.println();
+
+
+
+        // Print the output matrix
+        System.out.print("Output matrix:\t");
+        printMatrix(matrix);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    //  Method for printing the matrix
+    //------------------------------------------------------------------------------------------------------------------
+    public static void printMatrix(int[][] matrix) {
+        System.out.print("[");
+
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.print("[");
+
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (j < (matrix[i].length - 1)) {
+                    System.out.print(matrix[i][j] + ",");
+                }
+                else {
+                    System.out.print(matrix[i][j]);
+                }
+            }
+
+            System.out.print("]");
+        }
+
+        System.out.print("]");
     }
 }
