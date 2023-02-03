@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/DSComparison" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/LinkedListTest" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Lab01" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Homework01" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
