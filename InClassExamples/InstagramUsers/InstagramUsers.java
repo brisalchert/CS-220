@@ -66,5 +66,54 @@ public class InstagramUsers {
         System.out.println("Runtime for inserting 2 users at the beginning with an ArrayList: " + runtime + " nanoseconds");
 
         System.out.println();
+
+        // Perform operations on the LinkedList
+        startTime = System.nanoTime();
+
+        // Insert 1,000,000 users
+        for (int count = 0; count < 1000000; count++) {
+            // Create new User with name John
+            User emma = new User("Emma");
+
+            // Add John to the Arraylist
+            instagramLinkedList.add(emma);
+        }
+
+        endTime = System.nanoTime();
+
+        // Measure time for operation
+        runtime = endTime - startTime;
+
+        // Print the runtime
+        System.out.println("Runtime for Inserting 1,000,000 users with a LinkedList: " + runtime + " nanoseconds");
+
+        startTime = System.nanoTime();
+
+        // Delete the 59,421st user
+        instagramLinkedList.remove(59420);
+
+        endTime = System.nanoTime();
+
+        // Measure time for operation
+        runtime = endTime - startTime;
+
+        // Print the runtime
+        System.out.println("Runtime for deleting the 59,421st user with a LinkedList: " + runtime + " nanoseconds");
+
+        startTime = System.nanoTime();
+
+        // Insert 2 users at the beginning
+        User sophie = new User("Sophie");
+        User bella = new User("Bella");
+        instagramLinkedList.add(0, sophie);
+        instagramLinkedList.add(0, bella);
+
+        endTime = System.nanoTime();
+
+        // Measure time for operation
+        runtime = endTime - startTime;
+
+        // Print the runtime
+        System.out.println("Runtime for inserting 2 users at the beginning with a LinkedList: " + runtime + " nanoseconds");
     }
 }
