@@ -93,12 +93,15 @@ public class MyCircularQueue {
         queue[front] = null;
         size--;
 
-        // Check if the old front value is at the end of the array and set the new front location
-        if (front == (queue.length - 1)) {
-            front = 0;
-        }
-        else {
-            front ++;
+        // Check if the queue is empty, in which case the front pointer need not be changed
+        if (!isEmpty()) {
+            // Check if the old front value is at the end of the array and set the new front location
+            if (front == (queue.length - 1)) {
+                front = 0;
+            }
+            else {
+                front ++;
+            }
         }
 
         return true;
