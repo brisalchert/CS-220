@@ -5,6 +5,7 @@
 //----------------------------------------------------------------------------------------------------------------------
 
 public class MyCircularQueue {
+    // We use the Integer class so that dequeued elements in the array can be set to null
     private Integer[] queue;
     private int front;
     private int rear;
