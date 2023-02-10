@@ -6,10 +6,10 @@
 
 public class MyCircularQueue {
     // We use the Integer class so that values in the queue can be set to null when deleted.
-    Integer[] queue;
-    int front;
-    int rear;
-    int size;
+    private Integer[] queue;
+    private int front;
+    private int rear;
+    private int size;
 
     /**
      * Initializes the queue with size k
