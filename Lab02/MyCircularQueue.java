@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------------------------------------------------------
 //  MyCircularQueue.java                Author: Brian Salchert
 //
-//  Implementation of the Circular ArrayQueue and its methods.
+//  Implementation of the Circular ArrayQueue and its methods for use with integers.
 //----------------------------------------------------------------------------------------------------------------------
 
 public class MyCircularQueue {
