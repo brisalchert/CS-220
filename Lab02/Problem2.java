@@ -10,6 +10,7 @@ public class Problem2 {
 
         System.out.println(circularQueue.enQueue(1));
         System.out.println(circularQueue.enQueue(2));
+        System.out.println(circularQueue.front());
         System.out.println(circularQueue.enQueue(3));
         System.out.println(circularQueue.enQueue(4));
         System.out.println(circularQueue.rear());
