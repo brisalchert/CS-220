@@ -16,7 +16,7 @@ public class MyCircularQueue {
      * @param k the size of the queue
      */
     public MyCircularQueue(int k) {
-        queue = new Integer [k];
+        queue = new Integer[k];
         size = 0;
         front = 0;
         rear = 0;
