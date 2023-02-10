@@ -5,7 +5,6 @@
 //----------------------------------------------------------------------------------------------------------------------
 
 public class MyCircularQueue {
-    // We use the Integer class so that values in the queue can be set to null when deleted.
     private Integer[] queue;
     private int front;
     private int rear;
@@ -61,12 +60,15 @@ public class MyCircularQueue {
             return false;
         }
 
-        // Check if the current rear value is at the end of the array and set the new rear location
-        if (rear == (queue.length - 1)) {
-            rear = 0;
-        }
-        else {
-            rear++;
+        // Check if the queue is empty to see if the rear pointer must be changed
+        if (!isEmpty()) {
+            // Check if the current rear value is at the end of the array and set the new rear location
+            if (rear == (queue.length - 1)) {
+                rear = 0;
+            }
+            else {
+                rear++;
+            }
         }
 
         // Add the new value at the rear of the queue
