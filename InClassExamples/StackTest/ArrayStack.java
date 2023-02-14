@@ -25,7 +25,7 @@ public class ArrayStack<E> {
         size++;
     }
 
-    public E pop(E e) {
+    public E pop() {
         E temp = stack[top];
         stack[top] = null;
         size--;
