@@ -18,7 +18,7 @@ public class StringReverse {
         input = new Scanner(System.in);
 
         System.out.print("Enter a string to reverse: ");
-        forwards = input.next();
+        forwards = input.nextLine();
         System.out.println();
 
         letters = forwards.toCharArray();
