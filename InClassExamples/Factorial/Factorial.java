@@ -23,7 +23,7 @@ public class Factorial {
             throw new IllegalArgumentException("Input must be non-negative.");
         }
 
-        if (n == 0 || n == 1) {
+        if (n < 2) {
             return 1;
         }
 
