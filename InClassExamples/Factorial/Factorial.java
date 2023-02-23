@@ -18,6 +18,12 @@ public class Factorial {
         System.out.println(argument + "! = " + factorial(argument));
     }
 
+    /**
+     * Computes the factorial of an input integer
+     * @param n The input to compute the factorial of
+     * @return n!
+     * @throws IllegalArgumentException if the input is negative
+     */
     public static int factorial(int n) throws IllegalArgumentException {
         if (n < 0) {
             throw new IllegalArgumentException("Input must be non-negative.");
