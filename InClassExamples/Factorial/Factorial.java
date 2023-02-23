@@ -11,10 +11,10 @@ import java.util.Scanner;
 public class Factorial {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        int argument;
+        long argument;
 
         System.out.print("Enter a non-negative integer: ");
-        argument = input.nextInt();
+        argument = input.nextLong();
         System.out.println(argument + "! = " + factorial(argument));
     }
 
@@ -24,7 +24,7 @@ public class Factorial {
      * @return n!
      * @throws IllegalArgumentException if the input is negative
      */
-    public static int factorial(int n) throws IllegalArgumentException {
+    public static long factorial(long n) throws IllegalArgumentException {
         if (n < 0) {
             throw new IllegalArgumentException("Input must be non-negative.");
         }
