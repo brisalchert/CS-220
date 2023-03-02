@@ -32,10 +32,8 @@ public class TreeTest {
         tree.addChild(rootChildren.get(0), 3);
         tree.addChild(rootChildren.get(0), 4);
 
-        Iterator<Integer> iter = tree.iterator();
-
-        while (iter.hasNext()) {
-            System.out.println(iter.next());
+        for (Integer integer : tree) {
+            System.out.println(integer);
         }
     }
 }

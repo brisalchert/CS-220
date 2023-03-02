@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class LinkedTree<E> implements Tree<E> {
-    private Node<E> root;
+    private final Node<E> root;
     private int size;
 
     /**
@@ -35,7 +35,7 @@ public class LinkedTree<E> implements Tree<E> {
         Node<E> parent = validate(p);
         List<Node<E>> children = parent.getChildren();
 
-        Node<E> child = new Node<E>(e, parent);
+        Node<E> child = new Node<>(e, parent);
         children.add(child);
 
         parent.setChildren(children);
@@ -102,7 +102,7 @@ public class LinkedTree<E> implements Tree<E> {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-            Iterator<Position<E>> iter = positions().iterator();
+            final Iterator<Position<E>> iter = positions().iterator();
 
             @Override
             public boolean hasNext() {
@@ -123,11 +123,9 @@ public class LinkedTree<E> implements Tree<E> {
      * @throws IllegalArgumentException if the position is not an instance of Node or if the position is invalid
      */
     public Node<E> validate(Position<E> p) throws IllegalArgumentException {
-        if (!(p instanceof Node<E>)) {
+        if (!(p instanceof Node<E> node)) {
             throw new IllegalArgumentException("Invalid Position Type");
         }
-
-        Node<E> node = (Node<E>) p;
 
         if ((node.getParent() == null) && (node != root)) {
             throw new IllegalArgumentException("Position is no longer in the tree");
@@ -161,7 +159,7 @@ public class LinkedTree<E> implements Tree<E> {
      */
     @Override
     public Iterable<Position<E>> positions() throws IllegalArgumentException {
-        List<Position<E>> list = new ArrayList<Position<E>>();
+        List<Position<E>> list = new ArrayList<>();
         Position<E> p = root;
 
         preorder(p, list);
@@ -238,12 +236,9 @@ public class LinkedTree<E> implements Tree<E> {
      */
     @Override
     public Iterable<Position<E>> children(Position<E> p) throws IllegalArgumentException {
-        List<Position<E>> children = new ArrayList<>();
         Node<E> node = validate(p);
 
-        children.addAll(node.getChildren());
-
-        return children;
+        return new ArrayList<>(node.getChildren());
     }
 
     /**
@@ -282,10 +277,14 @@ public class LinkedTree<E> implements Tree<E> {
         /**
          * Returns the data stored in the node
          * @return the data stored in the node
-         * @throws IllegalStateException
+         * @throws IllegalStateException if node has no data
          */
         @Override
         public E getElement() throws IllegalStateException {
+            if (data == null) {
+                throw new IllegalStateException("Node data is null");
+            }
+
             return data;
         }
 
