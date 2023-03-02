@@ -55,15 +55,8 @@ public class LinkedTree<E> implements Tree<E> {
         // Add the new sibling as a child of the existing sibling's parent
         Node<E> sibling = validate(p);
         Node<E> parent = sibling.getParent();
-        List<Node<E>> children = parent.getChildren();
 
-        Node<E> newSibling = new Node<E>(e, parent);
-        children.add(newSibling);
-
-        parent.setChildren(children);
-        size++;
-
-        return newSibling;
+        return addChild(parent, e);
     }
 
     /**
