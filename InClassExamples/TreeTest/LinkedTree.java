@@ -60,6 +60,20 @@ public class LinkedTree<E> implements Tree<E> {
     }
 
     /**
+     * Gets the child node of a particular parent node at a particular index in the parent node's list of children
+     * @param p the position of the parent node
+     * @param index the index of the child node in the list of children
+     * @return the position of the child node
+     * @throws IllegalArgumentException if the position p cannot be validated
+     */
+    public Position<E> getChild(Position<E> p, int index) throws IllegalArgumentException {
+        // Get the child of the parent node
+        Node<E> parent = validate(p);
+
+        return parent.getChildren().get(index);
+    }
+
+    /**
      * Removes a node from a given position in the tree as long as it does not have any children
      * @param p the position of the node to be removed
      * @return the element stored in the removed node
