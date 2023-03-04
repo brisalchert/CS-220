@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class LinkedTree<E> implements Tree<E> {
-    private final Node<E> root;
+    protected final Node<E> root;
     private int size;
 
     /**
      * Constructor: Sets up the tree with a parent node and data e
      * @param e data in the parent node
      */
-    public LinkedTree(E e) {
+    protected LinkedTree(E e) {
         root = new Node<E>(e, null);
         size = 1;
     }
@@ -136,7 +136,7 @@ public class LinkedTree<E> implements Tree<E> {
      * @return the node that was validated
      * @throws IllegalArgumentException if the position is not an instance of Node or if the position is invalid
      */
-    public Node<E> validate(Position<E> p) throws IllegalArgumentException {
+    protected Node<E> validate(Position<E> p) throws IllegalArgumentException {
         if (!(p instanceof Node<E> node)) {
             throw new IllegalArgumentException("Invalid Position Type");
         }
