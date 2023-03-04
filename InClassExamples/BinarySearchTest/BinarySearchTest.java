@@ -11,17 +11,11 @@ import java.util.ArrayList;
 public class BinarySearchTest {
     public static void main(String[] args) {
         ArrayList<Integer> list = new ArrayList<>();
+        int[] data = {3, 12, 13, 20, 26, 31, 36, 40, 50, 55};
 
-        list.add(3);
-        list.add(12);
-        list.add(13);
-        list.add(20);
-        list.add(26);
-        list.add(31);
-        list.add(36);
-        list.add(40);
-        list.add(50);
-        list.add(55);
+        for (int element : data) {
+            list.add(element);
+        }
 
         System.out.println(binarySearch(list, 40, 0, list.size() - 1));
     }
