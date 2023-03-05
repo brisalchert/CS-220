@@ -7,7 +7,6 @@
 package PriorityQueue;
 
 import java.util.Comparator;
-import java.util.List;
 
 import TreeTest.LinkedPositionalList;
 
