@@ -11,7 +11,93 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class LinkedTree<E> implements Tree<E> {
-    protected final Node<E> root;
+    /**
+     * Support class for the nodes of the Linked Tree
+     * @param <E> The data type to be stored in the nodes
+     */
+    private static class Node<E> implements Position<E> {
+        private E data;
+        private Node<E> parent;
+        private List<Node<E>> children;
+
+        /**
+         * Constructor: creates a node from its stored data and parent node
+         * @param e the data to be stored in the new node
+         * @param parent the parent node
+         */
+        public Node(E e, Node<E> parent, List<Node<E>> children) {
+            data = e;
+            this.parent = parent;
+            this.children = children;
+        }
+
+        /**
+         * Returns the data stored in the node
+         * @return the data stored in the node
+         * @throws IllegalStateException if node has no data
+         */
+        @Override
+        public E getElement() throws IllegalStateException {
+            if (data == null) {
+                throw new IllegalStateException("Node data is null");
+            }
+
+            return data;
+        }
+
+        /**
+         * Returns the parent node of this node
+         * @return the parent node of this node
+         */
+        public Node<E> getParent() {
+            return parent;
+        }
+
+        /**
+         * Returns a list of the children of this node
+         * @return a list of the children of this node
+         */
+        public List<Node<E>> getChildren() {
+            return children;
+        }
+
+        /**
+         * Sets the data in this node to e
+         * @param e the new data to be stored in the node
+         */
+        public void setElement(E e) {
+            data = e;
+        }
+
+        /**
+         * Sets the parent node of this node to a particular node
+         * @param parentNode the new parent node
+         */
+        public void setParent(Node<E> parentNode) {
+            parent = parentNode;
+        }
+
+        /**
+         * Sets the list of children of this node to a particular list of nodes
+         * @param childrenList the list of new children nodes
+         */
+        public void setChildren(List<Node<E>> childrenList) {
+            children = childrenList;
+        }
+    }
+
+    /**
+     * Creates a new node with stored data, a parent node, and a list of children nodes
+     * @param e data to be stored in the node
+     * @param parent parent node of the new node
+     * @param children list of children nodes
+     * @return the new node
+     */
+    protected Node<E> createNode(E e, Node<E> parent, List<Node<E>> children) {
+        return new Node<E>(e, parent, children);
+    }
+
+    protected Node<E> root = null;
     private int size;
 
     /**
@@ -19,7 +105,7 @@ public class LinkedTree<E> implements Tree<E> {
      * @param e data in the parent node
      */
     protected LinkedTree(E e) {
-        root = new Node<E>(e, null);
+        root = createNode(e, null, null);
         size = 1;
     }
 
@@ -35,7 +121,7 @@ public class LinkedTree<E> implements Tree<E> {
         Node<E> parent = validate(p);
         List<Node<E>> children = parent.getChildren();
 
-        Node<E> child = new Node<>(e, parent);
+        Node<E> child = createNode(e, parent, null);
         children.add(child);
 
         parent.setChildren(children);
@@ -266,80 +352,5 @@ public class LinkedTree<E> implements Tree<E> {
         Node<E> node = validate(p);
 
         return node.getParent();
-    }
-
-    /**
-     * Support class for the nodes of the Linked Tree
-     * @param <E> The data type to be stored in the nodes
-     */
-    private static class Node<E> implements Position<E> {
-        private E data;
-        private Node<E> parent;
-        private List<Node<E>> children;
-
-        /**
-         * Constructor: creates a node from its stored data and parent node
-         * @param e the data to be stored in the new node
-         * @param parent the parent node
-         */
-        public Node(E e, Node<E> parent) {
-            data = e;
-            this.parent = parent;
-            children = new ArrayList<Node<E>>();
-        }
-
-        /**
-         * Returns the data stored in the node
-         * @return the data stored in the node
-         * @throws IllegalStateException if node has no data
-         */
-        @Override
-        public E getElement() throws IllegalStateException {
-            if (data == null) {
-                throw new IllegalStateException("Node data is null");
-            }
-
-            return data;
-        }
-
-        /**
-         * Returns the parent node of this node
-         * @return the parent node of this node
-         */
-        public Node<E> getParent() {
-            return parent;
-        }
-
-        /**
-         * Returns a list of the children of this node
-         * @return a list of the children of this node
-         */
-        public List<Node<E>> getChildren() {
-            return children;
-        }
-
-        /**
-         * Sets the data in this node to e
-         * @param e the new data to be stored in the node
-         */
-        public void setElement(E e) {
-            data = e;
-        }
-
-        /**
-         * Sets the parent node of this node to a particular node
-         * @param parentNode the new parent node
-         */
-        public void setParent(Node<E> parentNode) {
-            parent = parentNode;
-        }
-
-        /**
-         * Sets the list of children of this node to a particular list of nodes
-         * @param childrenList the list of new children nodes
-         */
-        public void setChildren(List<Node<E>> childrenList) {
-            children = childrenList;
-        }
     }
 }
