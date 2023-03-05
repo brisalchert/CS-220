@@ -25,16 +25,28 @@ public class PriorityQueueTest {
             }
         };
 
-        UnsortedPriorityQueue<Integer,Integer> priorityQueue = new UnsortedPriorityQueue<Integer,Integer>();
+        UnsortedPriorityQueue<Integer,Integer> unsortedPriorityQueue = new UnsortedPriorityQueue<Integer,Integer>();
+        SortedPriorityQueue<Integer,Integer> sortedPriorityQueue = new SortedPriorityQueue<Integer,Integer>();
 
-        priorityQueue.insert(3, 4);
-        priorityQueue.insert(2, 5);
-        priorityQueue.insert(4, 1);
+        unsortedPriorityQueue.insert(3, 4);
+        unsortedPriorityQueue.insert(2, 5);
+        unsortedPriorityQueue.insert(4, 1);
 
-        System.out.println(priorityQueue.removeMin());
-        System.out.println(priorityQueue.min());
-        System.out.println(priorityQueue.removeMin());
-        System.out.println(priorityQueue.removeMin());
-        System.out.println(priorityQueue.removeMin());
+        System.out.println(unsortedPriorityQueue.removeMin());
+        System.out.println(unsortedPriorityQueue.min());
+        System.out.println(unsortedPriorityQueue.removeMin());
+        System.out.println(unsortedPriorityQueue.removeMin());
+        System.out.println(unsortedPriorityQueue.removeMin());
+
+        sortedPriorityQueue.insert(7,3);
+        sortedPriorityQueue.insert(0,4);
+        sortedPriorityQueue.insert(2,13);
+
+        System.out.println(sortedPriorityQueue.removeMin());
+        System.out.println(sortedPriorityQueue.min());
+        System.out.println(sortedPriorityQueue.removeMin());
+        System.out.println(sortedPriorityQueue.size());
+        System.out.println(sortedPriorityQueue.removeMin());
+        System.out.println(sortedPriorityQueue.removeMin());
     }
 }
