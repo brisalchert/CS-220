@@ -70,7 +70,4 @@ public abstract class AbstractPriorityQueue<K extends Comparable<K>,V> implement
     protected AbstractPriorityQueue(Comparator<K> comp) {
         this.comp = comp;
     }
-
-    abstract int size();
-    abstract boolean isEmpty();
 }

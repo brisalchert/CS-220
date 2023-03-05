@@ -13,4 +13,8 @@ public interface PriorityQueue<K extends Comparable<K>,V> {
     Entry<K,V> min();
     // Finds and returns the smallest key in the queue and removes it.
     Entry<K,V> removeMin();
+    // Gets the size of the queue.
+    int size();
+    // Checks if the queue is empty.
+    boolean isEmpty();
 }
