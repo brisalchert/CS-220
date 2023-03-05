@@ -7,11 +7,15 @@
 
 package PriorityQueue;
 
+import TreeTest.LinkedPositionalList;
 import TreeTest.Position;
+import TreeTest.PositionalList;
 
 import java.util.Comparator;
 
 public class SortedPriorityQueue<K extends Comparable<K>,V> extends AbstractPriorityQueue<K,V> {
+    PositionalList<Entry<K,V>> list = new LinkedPositionalList<Entry<K,V>>();
+
     /**
      * Constructor: Creates a new SortedPriorityQueue from its superclass
      */
@@ -78,5 +82,21 @@ public class SortedPriorityQueue<K extends Comparable<K>,V> extends AbstractPrio
         }
 
         return list.remove(list.first());
+    }
+
+    /**
+     * Gets the size of the queue
+     * @return the size of the queue
+     */
+    public int size() {
+        return list.size();
+    }
+
+    /**
+     * Checks if the queue is empty
+     * @return true if the queue is empty
+     */
+    public boolean isEmpty() {
+        return list.isEmpty();
     }
 }

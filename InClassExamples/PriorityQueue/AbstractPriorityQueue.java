@@ -6,8 +6,6 @@
 
 package PriorityQueue;
 
-import TreeTest.PositionalList;
-import TreeTest.LinkedPositionalList;
 import java.util.Comparator;
 
 public abstract class AbstractPriorityQueue<K extends Comparable<K>,V> implements PriorityQueue<K,V> {
@@ -51,8 +49,6 @@ public abstract class AbstractPriorityQueue<K extends Comparable<K>,V> implement
              return "Key: " + getKey() + ", Value: " + getValue();
         }
     }
-
-    protected PositionalList<Entry<K,V>> list = new LinkedPositionalList<Entry<K,V>>();
     protected Comparator<K> comp;
 
     /**
@@ -75,19 +71,6 @@ public abstract class AbstractPriorityQueue<K extends Comparable<K>,V> implement
         this.comp = comp;
     }
 
-    /**
-     * Gets the size of the queue
-     * @return the size of the queue
-     */
-    protected int size() {
-        return list.size();
-    }
-
-    /**
-     * Checks if the queue is empty
-     * @return true if the queue is empty
-     */
-    protected boolean isEmpty() {
-        return list.isEmpty();
-    }
+    abstract int size();
+    abstract boolean isEmpty();
 }
