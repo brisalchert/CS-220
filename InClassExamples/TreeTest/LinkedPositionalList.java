@@ -310,6 +310,8 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
     public Position<E> addAfter(Position<E> p, E e) {
         Node<E> before = validate(p);
 
+        size++;
+
         return createNode(e, before, before.next);
     }
 
@@ -322,6 +324,8 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
     @Override
     public Position<E> addBefore(Position<E> p, E e) {
         Node<E> after = validate(p);
+
+        size++;
 
         if (after.prev != null) {
             return createNode(e, after.prev, after);
