@@ -6,7 +6,9 @@
 
 package TreeTest;
 
-public interface PositionalList<E> {
+import java.util.Iterator;
+
+public interface PositionalList<E> extends Iterable<E> {
     // Returns the position of the first element, or null if empty.
     Position<E> first();
     // Returns the position of the last element, or null if empty.
@@ -30,4 +32,9 @@ public interface PositionalList<E> {
     // Replaces the element at position p with element e, returning the element formerly at position p.
     E set(Position<E> p, E e);
     // Removes and returns the element at position p in the list, invalidating the position.
+    E remove(Position<E> p);
+    // Returns an iterator of the elements in the positional list
+    Iterator<E> iterator();
+    // Returns an iterable list of positions in the list
+    Iterable<Position<E>> positions();
 }
