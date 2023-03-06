@@ -97,7 +97,7 @@ public class LinkedTree<E> implements Tree<E> {
         return new Node<E>(e, parent, children);
     }
 
-    protected Node<E> root = null;
+    protected Node<E> root;
     private int size;
 
     /**
