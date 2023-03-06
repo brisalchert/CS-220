@@ -331,7 +331,7 @@ public class LinkedTree<E> implements Tree<E> {
     /**
      * Returns an iterable collection of the children of a particular node
      * @param p the position of the parent node
-     * @return an iterable collectin of the children of the node at position p
+     * @return an iterable collection of the children of the node at position p
      * @throws IllegalArgumentException if the node at position p cannot be validated
      */
     @Override
