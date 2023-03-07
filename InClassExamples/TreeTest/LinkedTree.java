@@ -93,7 +93,7 @@ public class LinkedTree<E> implements Tree<E> {
      * @param children list of children nodes
      * @return the new node
      */
-    protected Node<E> createNode(E e, Node<E> parent, List<Node<E>> children) {
+    private Node<E> createNode(E e, Node<E> parent, List<Node<E>> children) {
         return new Node<E>(e, parent, children);
     }
 

@@ -114,7 +114,7 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
      * @param rightChild the right child node
      * @return the new node
      */
-    protected Node<E> createNode(E e, Node<E> parent, Node<E> leftChild, Node<E> rightChild) {
+    private Node<E> createNode(E e, Node<E> parent, Node<E> leftChild, Node<E> rightChild) {
         return new Node<E>(e, parent, leftChild, rightChild);
     }
 
