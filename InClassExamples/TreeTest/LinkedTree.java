@@ -119,7 +119,14 @@ public class LinkedTree<E> implements Tree<E> {
     public Position<E> addChild(Position<E> p, E e) throws IllegalArgumentException {
         // Add the new child to the list of children for the parent
         Node<E> parent = validate(p);
-        List<Node<E>> children = parent.getChildren();
+        List<Node<E>> children;
+
+        if (parent.getChildren() == null) {
+            children = new ArrayList<>();
+        }
+        else {
+            children = parent.getChildren();
+        }
 
         Node<E> child = createNode(e, parent, null);
         children.add(child);
