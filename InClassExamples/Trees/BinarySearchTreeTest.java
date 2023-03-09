@@ -4,7 +4,7 @@
 //  Class for testing the binary search tree implementation in Java.
 //----------------------------------------------------------------------------------------------------------------------
 
-package TreeTest;
+package Trees;
 
 public class BinarySearchTreeTest {
     public static void main(String[] args) {

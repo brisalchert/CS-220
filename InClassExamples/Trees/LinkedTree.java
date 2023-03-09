@@ -4,7 +4,7 @@
 //  Tree implementation using a linked structure with nodes implementing the Position ADT.
 //----------------------------------------------------------------------------------------------------------------------
 
-package TreeTest;
+package Trees;
 
 import java.util.Iterator;
 import java.util.List;

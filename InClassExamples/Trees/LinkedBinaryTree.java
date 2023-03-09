@@ -1,16 +1,16 @@
 //----------------------------------------------------------------------------------------------------------------------
-//  LinkedBinarySearchTree.java               Author: Brian Salchert
+//  LinkedBinaryTree.java               Author: Brian Salchert
 //
-//  Binary Search Tree implementation in Java using a linked list and the Binary Search Tree ADT.
+//  Binary Tree implementation using a linked structure with nodes implementing the Position ADT.
 //----------------------------------------------------------------------------------------------------------------------
 
-package TreeTest;
+package Trees;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ArrayList;
 
-public class LinkedBinarySearchTree<E extends Comparable<E>> implements BinarySearchTree<E> {
+public class LinkedBinaryTree<E> implements BinaryTree<E> {
     /**
      * Support class for the nodes of the binary tree
      * @param <E> The data type to be stored in the nodes
@@ -122,10 +122,10 @@ public class LinkedBinarySearchTree<E extends Comparable<E>> implements BinarySe
     private int size;
 
     /**
-     * Constructor: Creates a new LinkedBinarySearchTree with a root node and size of 1
+     * Constructor: Creates a new LinkedBinaryTree with a root node and size of 1
      * @param e
      */
-    protected LinkedBinarySearchTree(E e) {
+    protected LinkedBinaryTree(E e) {
         root = createNode(e, null, null, null);
         size = 1;
     }
@@ -150,77 +150,76 @@ public class LinkedBinarySearchTree<E extends Comparable<E>> implements BinarySe
     }
 
     /**
-     * Adds a new element in its proper location in the BST
-     * @param e the new element to be added
-     * @return the position of the new element
-     * @throws IllegalArgumentException if the element already exists in the tree
+     * Adds a left child node to the node at position p
+     * @param p the position of the parent node
+     * @param e the data to be stored in the child node
+     * @return the position of the left child node
+     * @throws IllegalArgumentException if the parent node already has a left child
      */
-    public Position<E> addElement(E e) throws IllegalArgumentException {
-        Position<E> p = root;
-
-        return attachNode(p, e);
-    }
-
-    /**
-     * Support method for attaching a new node in its correct location in the BST
-     * @param p the position to attempt to add a child node to
-     * @param e the element to be stored in the new node
-     * @return the position of the new node
-     * @throws IllegalArgumentException if the element already exists in the tree
-     */
-    private Position<E> attachNode(Position<E> p, E e) throws IllegalArgumentException {
+    public Position<E> addLeftChild(Position<E> p, E e) throws IllegalArgumentException {
         Node<E> parent = validate(p);
 
-        if (p.getElement().compareTo(e) == 0) {
-            throw new IllegalArgumentException("Element already exists in tree");
+        if (parent.getLeftChild() != null) {
+            throw new IllegalArgumentException("Node already has a left child");
         }
 
-        if (p.getElement().compareTo(e) > 0) {
-            if (parent.getLeftChild() != null) {
-                return attachNode(parent.getLeftChild(), e);
-            }
+        Node<E> leftChild = createNode(e, parent, null, null);
 
-            Node<E> child = createNode(e, parent, null, null);
-            parent.setLeftChild(child);
+        parent.setLeftChild(leftChild);
+        size++;
 
-            return child;
-        }
-
-        if (parent.getRightChild() != null) {
-            return attachNode(parent.getRightChild(), e);
-        }
-
-        Node<E> child = createNode(e, parent, null, null);
-        parent.setRightChild(child);
-
-        return child;
+        return leftChild;
     }
 
     /**
-     * Searches the binary search tree for an element and returns true if found
-     * @param e the element to search for
-     * @return true if the element is found
+     * Adds a right child node to the node at position p
+     * @param p the position of the parent node
+     * @param e the data to be stored in the child node
+     * @return the position of the right child node
+     * @throws IllegalArgumentException if the parent node already has a right child
      */
-    @Override
-    public boolean search(E e) {
-        Position<E> p = root;
+    public Position<E> addRightChild(Position<E> p, E e) throws IllegalArgumentException {
+        Node<E> parent = validate(p);
 
-        while (p != null) {
-            if (p.getElement().compareTo(e) == 0) {
-                return true;
-            }
-
-            Node<E> node = validate(p);
-
-            if (p.getElement().compareTo(e) > 0) {
-                p = node.getLeftChild();
-            }
-            else {
-                p = node.getRightChild();
-            }
+        if (parent.getRightChild() != null) {
+            throw new IllegalArgumentException("Node already has a right child");
         }
 
-        return false;
+        Node<E> rightChild = createNode(e, parent, null, null);
+
+        parent.setRightChild(rightChild);
+        size++;
+
+        return rightChild;
+    }
+
+    /**
+     * Removes the node at position p and returns its data
+     * @param p the position of the node to be removed
+     * @return the data stored in the removed node
+     * @throws IllegalArgumentException if the node is not external
+     */
+    public E remove(Position<E> p) throws IllegalArgumentException {
+        if (isInternal(p)) {
+            throw new IllegalArgumentException("Invalid removal: node is not external");
+        }
+
+        Node<E> node = validate(p);
+        node.setParent(null);
+        size--;
+
+        return node.getElement();
+    }
+
+    /**
+     * Sets the data in the node at position p to e
+     * @param p the position of the node
+     * @param e the new data to be stored in the node
+     */
+    public void set(Position<E> p, E e) {
+        Node<E> node = validate(p);
+
+        node.setElement(e);
     }
 
     /**
@@ -341,28 +340,28 @@ public class LinkedBinarySearchTree<E extends Comparable<E>> implements BinarySe
         List<Position<E>> list = new ArrayList<>();
         Position<E> p = root;
 
-        inOrder(p, list);
+        preorder(p, list);
 
         return list;
     }
 
     /**
-     * Traverses the binary tree using in-order traversal for binary search tree behavior
-     * @param p the position in the tree to start the traversal from
-     * @param list the list to store positions in
+     * Traverses the tree using preorder traversal from a particular start position, storing the positions in a list
+     * @param p the starting position for the preorder traversal
+     * @param list the list to store the positions in
      * @throws IllegalArgumentException if a node cannot be validated
      */
-    public void inOrder(Position<E> p, List<Position<E>> list) throws IllegalArgumentException {
+    public void preorder(Position<E> p, List<Position<E>> list) throws IllegalArgumentException {
+        list.add(p);
+
         Node<E> node = validate(p);
 
         if (node.getLeftChild() != null) {
-            inOrder(node.getLeftChild(), list);
+            preorder(node.getLeftChild(), list);
         }
 
-        list.add(node);
-
         if (node.getRightChild() != null) {
-            inOrder(node.getRightChild(), list);
+            preorder(node.getRightChild(), list);
         }
     }
 

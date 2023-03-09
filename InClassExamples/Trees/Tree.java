@@ -4,7 +4,7 @@
 //  Tree interface implementation in java.
 //----------------------------------------------------------------------------------------------------------------------
 
-package TreeTest;
+package Trees;
 
 import java.util.Iterator;
 

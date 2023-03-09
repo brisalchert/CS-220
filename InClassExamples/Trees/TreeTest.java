@@ -4,7 +4,7 @@
 //  Class for testing the tree interface and functions in java.
 //----------------------------------------------------------------------------------------------------------------------
 
-package TreeTest;
+package Trees;
 
 public class TreeTest {
     public static void main(String[] args) {

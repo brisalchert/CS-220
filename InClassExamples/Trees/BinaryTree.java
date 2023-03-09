@@ -4,7 +4,7 @@
 //  Binary tree ADT extending the Tree ADT.
 //----------------------------------------------------------------------------------------------------------------------
 
-package TreeTest;
+package Trees;
 
 public interface BinaryTree<E> extends Tree<E> {
     Position<E> left(Position<E> p);

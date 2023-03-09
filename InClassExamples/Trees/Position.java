@@ -4,7 +4,7 @@
 //  Position ADT for use in positional lists.
 //----------------------------------------------------------------------------------------------------------------------
 
-package TreeTest;
+package Trees;
 
 public interface Position<E> {
     /**

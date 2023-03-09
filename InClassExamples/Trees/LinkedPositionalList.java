@@ -4,7 +4,7 @@
 //  Positional List implementation in Java using a Linked List.
 //----------------------------------------------------------------------------------------------------------------------
 
-package TreeTest;
+package Trees;
 
 import java.util.ArrayList;
 import java.util.Iterator;

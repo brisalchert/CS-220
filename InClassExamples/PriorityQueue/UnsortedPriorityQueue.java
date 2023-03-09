@@ -7,9 +7,9 @@
 
 package PriorityQueue;
 
-import TreeTest.LinkedPositionalList;
-import TreeTest.Position;
-import TreeTest.PositionalList;
+import Trees.LinkedPositionalList;
+import Trees.Position;
+import Trees.PositionalList;
 
 import java.util.Comparator;
 

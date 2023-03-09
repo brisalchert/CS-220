@@ -8,7 +8,7 @@ package PriorityQueue;
 
 import java.util.Comparator;
 
-import TreeTest.LinkedPositionalList;
+import Trees.LinkedPositionalList;
 
 public class PriorityQueueTest {
     public static void main(String[] args) {

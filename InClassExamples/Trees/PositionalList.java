@@ -4,7 +4,7 @@
 //  Positional List ADT with methods for use in the Tree interface.
 //----------------------------------------------------------------------------------------------------------------------
 
-package TreeTest;
+package Trees;
 
 import java.util.Iterator;
 
