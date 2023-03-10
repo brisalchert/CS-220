@@ -373,11 +373,7 @@ public class ArrayBinaryTree<E> implements BinaryTree<E> {
      */
     @Override
     public boolean isInternal(Position<E> p) {
-        if ((left(p) != null) || right(p) != null) {
-            return true;
-        }
-
-        return false;
+        return ((left(p) != null) || (right(p) != null));
     }
 
     /**
