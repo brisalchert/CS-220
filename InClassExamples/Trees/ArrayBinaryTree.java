@@ -7,7 +7,6 @@
 package Trees;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -373,11 +372,7 @@ public class ArrayBinaryTree<E> implements BinaryTree<E> {
      */
     @Override
     public boolean isInternal(Position<E> p) {
-        if ((left(p) != null) || right(p) != null) {
-            return true;
-        }
-
-        return false;
+        return ((left(p) != null) || (right(p) != null));
     }
 
     /**
@@ -387,11 +382,7 @@ public class ArrayBinaryTree<E> implements BinaryTree<E> {
      */
     @Override
     public boolean isExternal(Position<E> p) {
-        if ((left(p) == null) && (right(p) == null)) {
-            return true;
-        }
-
-        return false;
+        return ((left(p) == null) && (right(p) == null));
     }
 
     /**
