@@ -123,11 +123,34 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
 
     /**
      * Constructor: Creates a new LinkedBinaryTree with a root node and size of 1
-     * @param e
+     * @param e the data to be stored in the root node
      */
-    protected LinkedBinaryTree(E e) {
+    public LinkedBinaryTree(E e) {
         root = createNode(e, null, null, null);
         size = 1;
+    }
+
+    /**
+     * Constructor: Creates a new LinkedBinaryTree with a size of 0
+     */
+    public LinkedBinaryTree() {
+        size = 0;
+    }
+
+    /**
+     * Creates a root node for an empty tree
+     * @param e the data to be stored in the root
+     * @return the root node's position
+     * @throws IllegalStateException if the root already exists
+     */
+    public Position<E> createRoot(E e) throws IllegalStateException {
+        if (root != null) {
+            throw new IllegalStateException("Root already exists");
+        }
+
+        root = createNode(e, null, null, null);
+
+        return root;
     }
 
     /**

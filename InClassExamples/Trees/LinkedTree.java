@@ -104,9 +104,32 @@ public class LinkedTree<E> implements Tree<E> {
      * Constructor: Sets up the tree with a parent node and data e
      * @param e data in the parent node
      */
-    protected LinkedTree(E e) {
+    public LinkedTree(E e) {
         root = createNode(e, null, null);
         size = 1;
+    }
+
+    /**
+     * Constructor: Creates a new LinkedTree with a size of 0
+     */
+    public LinkedTree() {
+        size = 0;
+    }
+
+    /**
+     * Creates a root node for an empty tree
+     * @param e the data to be stored in the root
+     * @return the root node's position
+     * @throws IllegalStateException if the root already exists
+     */
+    public Position<E> createRoot(E e) throws IllegalStateException {
+        if (root != null) {
+            throw new IllegalStateException("Root already exists");
+        }
+
+        root = createNode(e, null, null);
+
+        return root;
     }
 
     /**

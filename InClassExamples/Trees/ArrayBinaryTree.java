@@ -59,7 +59,7 @@ public class ArrayBinaryTree<E> implements BinaryTree<E> {
     private int size;
 
     /**
-     * Creates a new ArrayBinaryTree with a root and a size of 1
+     * Constructor: Creates a new ArrayBinaryTree with a root and a size of 1
      * @param e the data to be stored in the root
      */
     public ArrayBinaryTree(E e) {
@@ -69,6 +69,30 @@ public class ArrayBinaryTree<E> implements BinaryTree<E> {
 
         binaryTree.add(0, root);
         size = 1;
+    }
+
+    /**
+     * Constructor: Creates a new ArrayBinaryTree with a size of 0
+     */
+    public ArrayBinaryTree() {
+        binaryTree = new ArrayList<>();
+        size = 0;
+    }
+
+    /**
+     * Creates a new root node for an empty tree
+     * @param e the data to be stored in the root node
+     * @return the root node's position
+     * @throws IllegalStateException if the root already exists
+     */
+    public Position<E> createRoot(E e) throws IllegalStateException {
+       if (root != null) {
+           throw new IllegalStateException("Root already exists");
+       }
+
+        root = createNode(e);
+
+       return root;
     }
 
     protected Node<E> validate(Position<E> p) throws IllegalArgumentException {

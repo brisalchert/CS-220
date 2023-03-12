@@ -123,11 +123,29 @@ public class LinkedBinarySearchTree<E extends Comparable<E>> implements BinarySe
 
     /**
      * Constructor: Creates a new LinkedBinarySearchTree with a root node and size of 1
-     * @param e
+     * @param e the data to be stored in the root node
      */
-    protected LinkedBinarySearchTree(E e) {
+    public LinkedBinarySearchTree(E e) {
         root = createNode(e, null, null, null);
         size = 1;
+    }
+
+    /**
+     * Constructor: Creates a new LinkedBinarySearchTree with a size of 0
+     */
+    public LinkedBinarySearchTree() {
+        size = 0;
+    }
+
+    /**
+     * Creates a root node for the binary search tree
+     * @param e the data to be stored in the root
+     * @return the root node
+     */
+    private Node<E> createRoot(E e) {
+        root = createNode(e, null, null, null);
+
+        return root;
     }
 
     /**
@@ -156,6 +174,10 @@ public class LinkedBinarySearchTree<E extends Comparable<E>> implements BinarySe
      * @throws IllegalArgumentException if the element already exists in the tree
      */
     public Position<E> addElement(E e) throws IllegalArgumentException {
+        if (isEmpty()) {
+            return createRoot(e);
+        }
+
         Position<E> p = root;
 
         return attachNode(p, e);
