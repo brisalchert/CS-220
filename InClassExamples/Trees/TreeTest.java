@@ -6,6 +6,8 @@
 
 package Trees;
 
+import java.util.Iterator;
+
 public class TreeTest {
     public static void main(String[] args) {
         LinkedTree<Integer> tree = new LinkedTree<Integer>(1);
@@ -44,12 +46,14 @@ public class TreeTest {
 
         System.out.println("Size of linked binary tree: " + linkedBinaryTree.size());
 
-        Position<Integer> arrA = arrayBinaryTree.addLeftChild(arrayBinaryTree.root(), 5);
-        Position<Integer> arrB = arrayBinaryTree.addRightChild(arrayBinaryTree.root(), 11);
-        Position<Integer> arrC = arrayBinaryTree.addLeftChild(arrA, 2);
+        int arrA = arrayBinaryTree.addLeftChild(arrayBinaryTree.root(), 5);
+        int arrB = arrayBinaryTree.addRightChild(arrayBinaryTree.root(), 11);
+        int arrC = arrayBinaryTree.addLeftChild(arrA, 2);
 
-        for (Integer integer : arrayBinaryTree) {
-            System.out.println(integer);
+        Iterator<Integer> arrayBinaryTreeIterator = arrayBinaryTree.iterator();
+
+        while (arrayBinaryTreeIterator.hasNext()) {
+            System.out.println(arrayBinaryTreeIterator.next());
         }
 
         System.out.println("Size of array binary tree: " + arrayBinaryTree.size());
