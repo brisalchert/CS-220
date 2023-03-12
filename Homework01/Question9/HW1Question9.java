@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------------------------------------------------
-//  Question9.java              Author: Brian Salchert
+//  HW1Question9.java              Author: Brian Salchert
 //
 //  Problem: Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should
 //  support all the functions of a normal stack (push, top, pop, and empty).

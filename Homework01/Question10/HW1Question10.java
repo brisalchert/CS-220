@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------------------------------------------------
-//  Question10.java              Author: Brian Salchert
+//  HW1Question10.java              Author: Brian Salchert
 //
 //  Driver class for StringDecoder.java. Used to test the decoding algorithm using several test cases.
 //----------------------------------------------------------------------------------------------------------------------
