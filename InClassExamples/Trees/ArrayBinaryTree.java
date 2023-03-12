@@ -91,6 +91,7 @@ public class ArrayBinaryTree<E> implements BinaryTree<E> {
        }
 
         root = createNode(e);
+        size++;
 
        return root;
     }

@@ -144,6 +144,7 @@ public class LinkedBinarySearchTree<E extends Comparable<E>> implements BinarySe
      */
     private Node<E> createRoot(E e) {
         root = createNode(e, null, null, null);
+        size++;
 
         return root;
     }

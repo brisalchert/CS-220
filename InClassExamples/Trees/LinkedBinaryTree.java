@@ -149,6 +149,7 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         }
 
         root = createNode(e, null, null, null);
+        size++;
 
         return root;
     }

@@ -128,6 +128,7 @@ public class LinkedTree<E> implements Tree<E> {
         }
 
         root = createNode(e, null, null);
+        size++;
 
         return root;
     }
