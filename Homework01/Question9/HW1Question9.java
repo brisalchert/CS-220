@@ -9,7 +9,7 @@
 
 package Question9;
 
-public class Question9 {
+public class HW1Question9 {
     public static void main(String[] args) {
         MyStack myStack = new MyStack();
 

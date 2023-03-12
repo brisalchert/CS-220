@@ -13,7 +13,7 @@ package Question8;
 import java.util.Stack;
 import java.util.LinkedList;
 
-public class Question8 {
+public class HW1Question8 {
     public static void main(String[] args) {
         LinkedList<Integer> list1 = new LinkedList<>();
         LinkedList<Integer> list2 = new LinkedList<>();

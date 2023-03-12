@@ -9,7 +9,7 @@ package Question7;
 
 import java.util.LinkedList;
 
-public class Question7 {
+public class HW1Question7 {
     public static void main(String[] args) {
         LinkedList<Integer> list1 = new LinkedList<>();
         LinkedList<Integer> list2 = new LinkedList<>();

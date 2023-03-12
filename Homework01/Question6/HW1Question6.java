@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------------------------------------------------------
 package Question6;
 
-public class Question6 {
+public class HW1Question6 {
     public static void main (String[] args) {
         Matrix matrix = new Matrix(4);
 
