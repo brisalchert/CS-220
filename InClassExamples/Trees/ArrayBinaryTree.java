@@ -10,65 +10,34 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ArrayBinaryTree<E> implements BinaryTree<E> {
-    protected static class Node<E> implements Position<E> {
-        E data;
-
-        /**
-         * Constructor: Creates a new node with data e
-         * @param e data to be stored in the node
-         */
-        public Node(E e) {
-            data = e;
-        }
-
-        /**
-         * Gets the data stored in a node
-         * @return the data stored in the node
-         * @throws IllegalStateException if the data is null
-         */
-        @Override
-        public E getElement() throws IllegalStateException {
-            if (data == null) {
-                throw new IllegalStateException("Node data is null");
-            }
-
-            return data;
-        }
-
-        /**
-         * Sets the data in the node to e
-         * @param e the new data to be stored in the node
-         */
-        public void setElement(E e) {
-            data = e;
-        }
-    }
-
-    /**
-     * Creates a new node with stored data e by accessing the Node constructor
-     * @param e data to be stored in the node
-     * @return the new node
-     */
-    private Node<E> createNode(E e) {
-        return new Node<E>(e);
-    }
-
-    private ArrayList<Node<E>> binaryTree;
-    private Node<E> root;
+public class ArrayBinaryTree<E> {
+    private ArrayList<E> binaryTree;
+    private E root;
     private int size;
 
     /**
-     * Constructor: Creates a new ArrayBinaryTree with a root and a size of 1
+     * Constructor: Creates a new ArrayBinaryTree with a root node and a size of 1
      * @param e the data to be stored in the root
      */
     public ArrayBinaryTree(E e) {
         binaryTree = new ArrayList<>();
 
-        root = createNode(e);
+        root = e;
 
         binaryTree.add(0, root);
         size = 1;
+    }
+
+    /**
+     * Constructor: Creates a new ArrayBinaryTree with a given list of nodes
+     * @param list the list of nodes
+     */
+    public ArrayBinaryTree(ArrayList<E> list) {
+        binaryTree = list;
+
+        root = list.get(0);
+
+        size = list.size();
     }
 
     /**
@@ -82,31 +51,18 @@ public class ArrayBinaryTree<E> implements BinaryTree<E> {
     /**
      * Creates a new root node for an empty tree
      * @param e the data to be stored in the root node
-     * @return the root node's position
+     * @return the root node's rank
      * @throws IllegalStateException if the root already exists
      */
-    public Position<E> createRoot(E e) throws IllegalStateException {
+    public int createRoot(E e) throws IllegalStateException {
        if (root != null) {
            throw new IllegalStateException("Root already exists");
        }
 
-        root = createNode(e);
+        root = e;
         size++;
 
-       return root;
-    }
-
-    protected Node<E> validate(Position<E> p) throws IllegalArgumentException {
-        if (!(p instanceof Node<E> node)) {
-            throw new IllegalArgumentException("Invalid position type");
-        }
-
-        // Condition for invalidating a node
-        if (node.data == null) {
-            throw new IllegalArgumentException("Position is no longer valid");
-        }
-
-        return node;
+       return binaryTree.indexOf(root);
     }
 
     /**
@@ -114,154 +70,197 @@ public class ArrayBinaryTree<E> implements BinaryTree<E> {
      * @param node the node to get the index of
      * @return the index of the node
      */
-    private int getRank(Node<E> node) {
+    public int getRank(E node) {
         return binaryTree.indexOf(node);
     }
 
     /**
-     * Sets the rank of a node in the tree
-     * @param rank the rank to set the index of the node to
-     * @param node the node to set the rank for
+     * Checks if an element already exists in the tree
+     * @param e the element to check existence of
+     * @return true if the element exists
      */
-    private void setRank(int rank, Node<E> node) throws IllegalArgumentException {
+    private boolean existsInTree(E e) {
+        return (binaryTree.indexOf(e) > 0);
+    }
+
+    /**
+     * Sets the value of a node at a particular rank in the tree
+     * @param rank the rank to set the value for
+     * @param e the new node value
+     * @throws IllegalArgumentException if the value already exists in the tree
+     */
+    private void setElement(int rank, E e) throws IllegalArgumentException {
         try {
             if (binaryTree.get(rank) != null) {
                 throw new IllegalArgumentException("Cannot set rank: index is occupied");
             }
         }
         catch (IndexOutOfBoundsException error) {
-            binaryTree.add(rank, node);
+            if (existsInTree(e)) {
+                throw new IllegalArgumentException("Cannot add element " + e + ": element already exists in tree");
+            }
+
+            binaryTree.add(rank, e);
 
             return;
         }
 
-        binaryTree.add(rank, node);
+        if (existsInTree(e)) {
+            throw new IllegalArgumentException("Cannot add element " + e + ": element already exists in tree");
+        }
+
+        binaryTree.add(rank, e);
     }
 
     /**
-     * Adds a left child node to the parent node at position p
-     * @param p the position of the parent node
-     * @param e the data to be stored in the child node
-     * @return the position of the new child node
-     * @throws IllegalArgumentException if the parent node cannot be validated
+     * Gets the element stored at a particular rank
+     * @param rank the rank of the element to fetch
+     * @return the element
+     * @throws IllegalArgumentException if no node exists at the rank
      */
-    public Position<E> addLeftChild(Position<E> p, E e) throws IllegalArgumentException {
-        Node<E> parent = validate(p);
+    private E getElement(int rank) throws IllegalArgumentException {
+        E node;
 
-        Node<E> leftChild = createNode(e);
-        setRank(((2 * getRank(parent)) + 1), leftChild);
+        try {
+            node = binaryTree.get(rank);
+        }
+        catch (IndexOutOfBoundsException error) {
+            throw new IllegalArgumentException("No node at rank " + rank);
+        }
+
+        if (node == null) {
+            throw new IllegalArgumentException("No node at rank " + rank);
+        }
+
+        return node;
+    }
+
+    /**
+     * Adds a left child node to the parent node at rank pRank
+     * @param pRank the rank of the parent node
+     * @param e the data to be stored in the child node
+     * @return the rank of the new child node
+     * @throws IllegalArgumentException if the parent node's rank does not have an element
+     */
+    public int addLeftChild(int pRank, E e) throws IllegalArgumentException {
+        E parent = getElement(pRank);
+
+        setElement(((2 * getRank(parent)) + 1), e);
         size++;
 
-        return leftChild;
+        return binaryTree.indexOf(e);
     }
 
     /**
-     * Adds a right child node to the parent node at position p
-     * @param p the position of the parent node
+     * Adds a right child node to the parent node at rank pRank
+     * @param pRank the rank of the parent node
      * @param e the data to be stored in the child node
-     * @return the position of the new child node
-     * @throws IllegalArgumentException if the parent node cannot be validated
+     * @return the rank of the new child node
+     * @throws IllegalArgumentException if the parent node's rank does not have an element
      */
-    public Position<E> addRightChild(Position<E> p, E e) throws IllegalArgumentException {
-        Node<E> parent = validate(p);
+    public int addRightChild(int pRank, E e) throws IllegalArgumentException {
+        E parent = getElement(pRank);
 
-        Node<E> rightChild = createNode(e);
-        setRank(((2 * getRank(parent)) + 2), rightChild);
+        setElement(((2 * getRank(parent)) + 2), e);
         size++;
 
-        return rightChild;
+        return binaryTree.indexOf(e);
     }
 
     /**
-     * Removes the node at position p and returns its data
-     * @param p the position of the node to be removed
+     * Removes the node at a particular rank and returns its data
+     * @param rank the rank of the node to be removed
      * @return the data stored in the node
-     * @throws IllegalArgumentException if the node at position p is internal
+     * @throws IllegalArgumentException if the node is internal
      */
-    public E remove(Position<E> p) throws IllegalArgumentException {
-        if (isInternal(p)) {
+    public E remove(int rank) throws IllegalArgumentException {
+        if (isInternal(rank)) {
             throw new IllegalArgumentException("Cannot remove internal node");
         }
 
-        Node<E> node = validate(p);
-        E temp = node.getElement();
-        node.setElement(null);
+        E temp = binaryTree.get(rank);
+        setElement(rank, null);
         size--;
 
         return temp;
     }
 
     /**
-     * Sets the data in the node at position p to e
-     * @param p the position of the node
+     * Sets the data in the node at a particular rank to e
+     * @param rank the rank of the node
      * @param e the new data to be stored in the node
-     * @throws IllegalArgumentException if the position of the node cannot be validated
      */
-    public void set(Position<E> p, E e) throws IllegalArgumentException {
-        Node<E> node = validate(p);
-
-        node.setElement(e);
+    public void set(int rank, E e) {
+        setElement(rank, e);
     }
 
     /**
-     * Gets the left child of the node at position p
-     * @param p the position of the parent node
-     * @return the position of the left child node
-     * @throws IllegalArgumentException if the position of the node cannot be validated
+     * Gets the rank of the left child of the node at rank pRank
+     * @param pRank the rank of the parent node
+     * @return the rank of the left child node
+     * @throws IllegalArgumentException if there is no left child
      */
-    @Override
-    public Position<E> left(Position<E> p) throws IllegalArgumentException {
-        Node<E> parent = validate(p);
+    public int left(int pRank) throws IllegalArgumentException {
+        // Confirm that the parent exists
+        E parent = getElement(pRank);
+        E left;
 
         try {
-            return binaryTree.get((2 * getRank(parent)) + 1);
+            left = binaryTree.get((2 * getRank(parent)) + 1);
         }
         catch (IndexOutOfBoundsException error) {
-            return null;
+            throw new IllegalArgumentException("Node at rank " + pRank + " has no left child");
         }
+
+        return binaryTree.indexOf(left);
     }
 
     /**
-     * Gets the right child of the node at position p
-     * @param p the position of the parent node
-     * @return the position of the right child node
-     * @throws IllegalArgumentException if the position of the node cannot be validated
+     * Gets the rank of the right child of the node at rank pRank
+     * @param pRank the rank of the parent node
+     * @return the rank of the right child node
+     * @throws IllegalArgumentException if there is no right child
      */
-    @Override
-    public Position<E> right(Position<E> p) throws IllegalArgumentException {
-        Node<E> parent = validate(p);
+    public int right(int pRank) throws IllegalArgumentException {
+        // Confirm that the parent exists
+        E parent = getElement(pRank);
+        E right;
 
         try {
-            return binaryTree.get((2 * getRank(parent)) + 2);
+            right = binaryTree.get((2 * getRank(parent)) + 2);
         }
         catch (IndexOutOfBoundsException error) {
-            return null;
+            throw new IllegalArgumentException("Node at rank " + pRank + " has no right child");
         }
+
+        return binaryTree.indexOf(right);
     }
 
     /**
-     * Gets the sibling of the node at position p
-     * @param p the position of the first child node
-     * @return the position of the sibling node
+     * Gets the rank of the sibling of the node at rank r
+     * @param r the rank of the first child node
+     * @return the rank of the other child node
      */
-    @Override
-    public Position<E> sibling(Position<E> p) {
-        Node<E> node = validate(p);
+    public int sibling(int r) {
+        // Confirm that the sibling exists
+        E sibling = getElement(r);
+        E otherChild;
 
         // Determine if node is a left or right child
-        if ((getRank(node) % 2) == 1) {
-            return binaryTree.get(getRank(node) + 1);
+        if ((getRank(sibling) % 2) == 1) {
+            otherChild = binaryTree.get(getRank(sibling) + 1);
         }
         else {
-            return binaryTree.get(getRank(node) - 1);
+            otherChild = binaryTree.get(getRank(sibling) - 1);
         }
+
+        return binaryTree.indexOf(otherChild);
     }
 
     /**
      * Gets the size of the binary tree
      * @return the size of the binary tree
      */
-    @Override
     public int size() {
         return size;
     }
@@ -270,7 +269,6 @@ public class ArrayBinaryTree<E> implements BinaryTree<E> {
      * Checks if the tree is empty
      * @return true if the tree is empty
      */
-    @Override
     public boolean isEmpty() {
         return (size == 0);
     }
@@ -279,111 +277,69 @@ public class ArrayBinaryTree<E> implements BinaryTree<E> {
      * Returns an iterator on the elements of the binary tree using preorder traversal
      * @return an iterator on the elements of the binary tree
      */
-    @Override
     public Iterator<E> iterator() {
-        return new Iterator<E>() {
+        List<E> list = new ArrayList<>();
 
-            final Iterator<Position<E>> iter = positions().iterator();
-
-            @Override
-            public boolean hasNext() {
-                return iter.hasNext();
-            }
-
-            @Override
-            public E next() {
-                return iter.next().getElement();
-            }
-        };
+        return binaryTree.iterator();
     }
 
     /**
-     * Returns an iterable list of the positions in the binary tree using preorder traversal
-     * @return an iterable collection of the positions in the binary tree
-     * @throws IllegalArgumentException if a position cannot be validated
+     * Traverses the binary tree using preorder traversal from a particular start rank, storing elements in a list
+     * @param r the start rank
+     * @param list the list to store elements in
      */
-    @Override
-    public Iterable<Position<E>> positions() throws IllegalArgumentException {
-        List<Position<E>> list = new ArrayList<>();
-        preorder(root, list);
+    public List<E> preorder(int r, List<E> list) {
+        list.add(binaryTree.get(r));
+
+        if (binaryTree.get(left(r)) != null) {
+            preorder(left(r), list);
+        }
+
+        if (binaryTree.get(right(r)) != null) {
+            preorder(right(r), list);
+        }
 
         return list;
     }
 
     /**
-     * Traverses the binary tree using preorder traversal from a particular start position, storing positions in a list
-     * @param p the start position
-     * @param list the list to store positions in
-     * @throws IllegalArgumentException if a node cannot be validated
+     * Gets the rank of the root of the binary tree
+     * @return the rank of the root of the tree
      */
-    public void preorder(Position<E> p, List<Position<E>> list) throws IllegalArgumentException {
-        list.add(p);
-
-        if (left(p) != null) {
-            preorder(left(p), list);
-        }
-
-        if (right(p) != null) {
-            preorder(right(p), list);
-        }
+    public int root() {
+        return binaryTree.indexOf(root);
     }
 
     /**
-     * Gets the position of the root of the binary tree
-     * @return the position of the root of the tree
+     * Gets the rank of the parent of a node in the binary tree
+     * @param r the rank of the child node
+     * @return the rank of the parent node
      */
-    @Override
-    public Position<E> root() {
-        return root;
+    public int parent(int r) {
+        // Confirm that the child exists
+        E child = getElement(r);
+        E parent;
+
+        parent = binaryTree.get((getRank(child) - 1) / 2);
+
+        return binaryTree.indexOf(parent);
     }
 
     /**
-     * Gets the position of the parent of a node in the binary tree
-     * @param p the position of the child node
-     * @return the position of the parent node
-     * @throws IllegalArgumentException if the position of the child node cannot be validated
-     */
-    @Override
-    public Position<E> parent(Position<E> p) throws IllegalArgumentException {
-        Node<E> child = validate(p);
-
-        return binaryTree.get((getRank(child) - 1) / 2);
-    }
-
-    /**
-     * Returns an iterable list of the positions of the children of the node at position p
-     * @param p the position of the parent node
-     * @return an iterable list of the positions of the children of the node at position p
-     */
-    @Override
-    public Iterable<Position<E>> children(Position<E> p) {
-        List<Position<E>> children = new ArrayList<>();
-
-        if (left(p) != null) {
-            children.add(left(p));
-        }
-
-        if (right(p) != null) {
-            children.add(right(p));
-        }
-
-        return children;
-    }
-
-    /**
-     * Returns the number of children of the node at position p
-     * @param p the position of the parent node
+     * Returns the number of children of the node at rank r
+     * @param r the rank of the parent node
      * @return the number of children of the parent node
      */
-    @Override
-    public int numChildren(Position<E> p) {
+    public int numChildren(int r) {
+        // Confirm that the node exists
+        E node = getElement(r);
         int counter = 0;
 
-        if (left(p) != null) {
+        if (binaryTree.get(left(r)) != null) {
             counter++;
         }
 
-        if (right(p) != null) {
+        if (binaryTree.get(right(r)) != null) {
             counter++;
         }
 
@@ -391,35 +347,32 @@ public class ArrayBinaryTree<E> implements BinaryTree<E> {
     }
 
     /**
-     * Checks if the node at position p is internal
-     * @param p the position of the node
+     * Checks if the node at rank r is internal
+     * @param r the rank of the node
      * @return true if the node has at least one child
      */
-    @Override
-    public boolean isInternal(Position<E> p) {
-        return ((left(p) != null) || (right(p) != null));
+    public boolean isInternal(int r) {
+        // Confirm that the node exists
+        E node = getElement(r);
+
+        return ((binaryTree.get(left(r)) != null) || (binaryTree.get(right(r)) != null));
     }
 
     /**
-     * Checks if the node at position p is external
-     * @param p the position of the node
+     * Checks if the node at rank r is external
+     * @param r the rank of the node
      * @return true if the node has no children
      */
-    @Override
-    public boolean isExternal(Position<E> p) {
-        return ((left(p) == null) && (right(p) == null));
+    public boolean isExternal(int r) {
+        return ((binaryTree.get(left(r)) == null) && (binaryTree.get(right(r)) == null));
     }
 
     /**
-     * Checks if the node at position p is the root
-     * @param p the position of the node
+     * Checks if the node at rank r is the root
+     * @param r the rank of the node
      * @return true if the node is the root
-     * @throws IllegalArgumentException if the position cannot be validated
      */
-    @Override
-    public boolean isRoot(Position<E> p) throws IllegalArgumentException {
-        Node<E> node = validate(p);
-
-        return (node == root);
+    public boolean isRoot(int r) throws IllegalArgumentException {
+        return (binaryTree.get(r) == root);
     }
 }
