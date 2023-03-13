@@ -113,12 +113,24 @@ public class ArrayBinaryTree<E> {
     }
 
     /**
+     * Method for adding to the ArrayList with inherited classes
+     * @param rank the rank to add new node at
+     * @param e the data to be stored in the new node
+     * @return the rank of the item added
+     */
+    protected int add(int rank, E e) {
+        binaryTree.add(rank, e);
+
+        return getRank(e);
+    }
+
+    /**
      * Gets the element stored at a particular rank
      * @param rank the rank of the element to fetch
      * @return the element
      * @throws IllegalArgumentException if no node exists at the rank
      */
-    private E getElement(int rank) throws IllegalArgumentException {
+    protected E getElement(int rank) throws IllegalArgumentException {
         E node;
 
         try {
@@ -128,11 +140,22 @@ public class ArrayBinaryTree<E> {
             throw new IllegalArgumentException("No node at rank " + rank);
         }
 
-        if (node == null) {
-            throw new IllegalArgumentException("No node at rank " + rank);
-        }
-
         return node;
+    }
+
+    /**
+     * Support method for verifying a node is not null
+     * @param r the rank of the node
+     * @return the element stored in the node
+     * @throws IllegalArgumentException if the node is null
+     */
+    protected E verifyNode(int r) throws IllegalArgumentException {
+        if (getElement(r) != null) {
+            return getElement(r);
+        }
+        else {
+            throw new IllegalArgumentException("Node is null");
+        }
     }
 
     /**
@@ -143,7 +166,7 @@ public class ArrayBinaryTree<E> {
      * @throws IllegalArgumentException if the parent node's rank does not have an element
      */
     public int addLeftChild(int pRank, E e) throws IllegalArgumentException {
-        E parent = getElement(pRank);
+        E parent = verifyNode(pRank);
 
         setElement(((2 * getRank(parent)) + 1), e);
         size++;
@@ -159,7 +182,7 @@ public class ArrayBinaryTree<E> {
      * @throws IllegalArgumentException if the parent node's rank does not have an element
      */
     public int addRightChild(int pRank, E e) throws IllegalArgumentException {
-        E parent = getElement(pRank);
+        E parent = verifyNode(pRank);
 
         setElement(((2 * getRank(parent)) + 2), e);
         size++;
@@ -198,11 +221,10 @@ public class ArrayBinaryTree<E> {
      * Gets the rank of the left child of the node at rank pRank
      * @param pRank the rank of the parent node
      * @return the rank of the left child node
-     * @throws IllegalArgumentException if there is no left child
+     * @throws IllegalArgumentException if there is no left child or parent
      */
     public int left(int pRank) throws IllegalArgumentException {
-        // Confirm that the parent exists
-        E parent = getElement(pRank);
+        E parent = verifyNode(pRank);
         E left;
 
         try {
@@ -219,11 +241,10 @@ public class ArrayBinaryTree<E> {
      * Gets the rank of the right child of the node at rank pRank
      * @param pRank the rank of the parent node
      * @return the rank of the right child node
-     * @throws IllegalArgumentException if there is no right child
+     * @throws IllegalArgumentException if there is no right child or parent
      */
     public int right(int pRank) throws IllegalArgumentException {
-        // Confirm that the parent exists
-        E parent = getElement(pRank);
+        E parent = verifyNode(pRank);
         E right;
 
         try {
@@ -240,10 +261,10 @@ public class ArrayBinaryTree<E> {
      * Gets the rank of the sibling of the node at rank r
      * @param r the rank of the first child node
      * @return the rank of the other child node
+     * @throws IllegalArgumentException if the sibling is null
      */
-    public int sibling(int r) {
-        // Confirm that the sibling exists
-        E sibling = getElement(r);
+    public int sibling(int r) throws IllegalArgumentException {
+        E sibling = verifyNode(r);
         E otherChild;
 
         // Determine if node is a left or right child
@@ -314,10 +335,10 @@ public class ArrayBinaryTree<E> {
      * Gets the rank of the parent of a node in the binary tree
      * @param r the rank of the child node
      * @return the rank of the parent node
+     * @throws IllegalArgumentException if the child is null
      */
     public int parent(int r) {
-        // Confirm that the child exists
-        E child = getElement(r);
+        E child = verifyNode(r);
         E parent;
 
         parent = binaryTree.get((getRank(child) - 1) / 2);
@@ -331,15 +352,14 @@ public class ArrayBinaryTree<E> {
      * @return the number of children of the parent node
      */
     public int numChildren(int r) {
-        // Confirm that the node exists
-        E node = getElement(r);
+        E node = verifyNode(r);
         int counter = 0;
 
-        if (binaryTree.get(left(r)) != null) {
+        if (binaryTree.get(left(getRank(node))) != null) {
             counter++;
         }
 
-        if (binaryTree.get(right(r)) != null) {
+        if (binaryTree.get(right(getRank(node))) != null) {
             counter++;
         }
 
@@ -352,10 +372,9 @@ public class ArrayBinaryTree<E> {
      * @return true if the node has at least one child
      */
     public boolean isInternal(int r) {
-        // Confirm that the node exists
-        E node = getElement(r);
+        E node = verifyNode(r);
 
-        return ((binaryTree.get(left(r)) != null) || (binaryTree.get(right(r)) != null));
+        return ((binaryTree.get(left(getRank(node))) != null) || (binaryTree.get(right(getRank(node))) != null));
     }
 
     /**
