@@ -60,6 +60,7 @@ public class ArrayBinaryTree<E> {
        }
 
         root = e;
+        binaryTree.add(root);
         size++;
 
        return binaryTree.indexOf(root);
@@ -84,25 +85,30 @@ public class ArrayBinaryTree<E> {
     }
 
     /**
+     * Ensures that the ArrayList has space for at least (size) elements
+     * @param list the list to ensure the size of
+     * @param size the required size of the list
+     */
+    private void ensureSize(ArrayList<E> list, int size) {
+        list.ensureCapacity(size);
+
+        // Add null elements to the array until it is of the right size
+        while (list.size() < size) {
+            list.add(null);
+        }
+    }
+
+    /**
      * Sets the value of a node at a particular rank in the tree
      * @param rank the rank to set the value for
      * @param e the new node value
      * @throws IllegalArgumentException if the value already exists in the tree
      */
     private void setElement(int rank, E e) throws IllegalArgumentException {
-        try {
-            if (binaryTree.get(rank) != null) {
-                throw new IllegalArgumentException("Cannot set rank: index is occupied");
-            }
-        }
-        catch (IndexOutOfBoundsException error) {
-            if (existsInTree(e)) {
-                throw new IllegalArgumentException("Cannot add element " + e + ": element already exists in tree");
-            }
+        ensureSize(binaryTree, (rank + 1));
 
-            binaryTree.add(rank, e);
-
-            return;
+        if (binaryTree.get(rank) != null) {
+            throw new IllegalArgumentException("Cannot set rank: index is occupied");
         }
 
         if (existsInTree(e)) {
@@ -128,19 +134,11 @@ public class ArrayBinaryTree<E> {
      * Gets the element stored at a particular rank
      * @param rank the rank of the element to fetch
      * @return the element
-     * @throws IllegalArgumentException if no node exists at the rank
      */
-    protected E getElement(int rank) throws IllegalArgumentException {
-        E node;
+    protected E getElement(int rank) {
+        ensureSize(binaryTree, (rank + 1));
 
-        try {
-            node = binaryTree.get(rank);
-        }
-        catch (IndexOutOfBoundsException error) {
-            throw new IllegalArgumentException("No node at rank " + rank);
-        }
-
-        return node;
+        return binaryTree.get(rank);
     }
 
     /**
@@ -221,40 +219,24 @@ public class ArrayBinaryTree<E> {
      * Gets the rank of the left child of the node at rank pRank
      * @param pRank the rank of the parent node
      * @return the rank of the left child node
-     * @throws IllegalArgumentException if there is no left child or parent
+     * @throws IllegalArgumentException if there is no parent
      */
     public int left(int pRank) throws IllegalArgumentException {
         E parent = verifyNode(pRank);
-        E left;
 
-        try {
-            left = binaryTree.get((2 * getRank(parent)) + 1);
-        }
-        catch (IndexOutOfBoundsException error) {
-            throw new IllegalArgumentException("Node at rank " + pRank + " has no left child");
-        }
-
-        return binaryTree.indexOf(left);
+        return ((2 * getRank(parent)) + 2);
     }
 
     /**
      * Gets the rank of the right child of the node at rank pRank
      * @param pRank the rank of the parent node
      * @return the rank of the right child node
-     * @throws IllegalArgumentException if there is no right child or parent
+     * @throws IllegalArgumentException if there is no parent
      */
     public int right(int pRank) throws IllegalArgumentException {
         E parent = verifyNode(pRank);
-        E right;
 
-        try {
-            right = binaryTree.get((2 * getRank(parent)) + 2);
-        }
-        catch (IndexOutOfBoundsException error) {
-            throw new IllegalArgumentException("Node at rank " + pRank + " has no right child");
-        }
-
-        return binaryTree.indexOf(right);
+        return ((2 * getRank(parent)) + 2);
     }
 
     /**
@@ -265,17 +247,17 @@ public class ArrayBinaryTree<E> {
      */
     public int sibling(int r) throws IllegalArgumentException {
         E sibling = verifyNode(r);
-        E otherChild;
+        int otherChildIndex;
 
         // Determine if node is a left or right child
         if ((getRank(sibling) % 2) == 1) {
-            otherChild = binaryTree.get(getRank(sibling) + 1);
+            otherChildIndex = (getRank(sibling) + 1);
         }
         else {
-            otherChild = binaryTree.get(getRank(sibling) - 1);
+            otherChildIndex = (getRank(sibling) - 1);
         }
 
-        return binaryTree.indexOf(otherChild);
+        return otherChildIndex;
     }
 
     /**
