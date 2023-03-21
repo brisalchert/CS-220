@@ -1,10 +1,10 @@
 //----------------------------------------------------------------------------------------------------------------------
-//  Problem2.java                Author: Brian Salchert
+//  Lab2Problem2.java                Author: Brian Salchert
 //
 //  Driver class for the Circular ArrayQueue.
 //----------------------------------------------------------------------------------------------------------------------
 
-public class Problem2 {
+public class Lab2Problem2 {
     public static void main (String[] args) {
         MyCircularQueue circularQueue = new MyCircularQueue(3);
 

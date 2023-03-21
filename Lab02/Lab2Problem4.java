@@ -1,10 +1,10 @@
 //----------------------------------------------------------------------------------------------------------------------
-//  Problem4.java                Author: Brian Salchert
+//  Lab2Problem4.java                Author: Brian Salchert
 //
 //  Driver class for MovingAverage.java.
 //----------------------------------------------------------------------------------------------------------------------
 
-public class Problem4 {
+public class Lab2Problem4 {
     public static void main (String[] args) {
         MovingAverage movingAverage = new MovingAverage(3);
 
