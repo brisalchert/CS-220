@@ -9,7 +9,6 @@ package Question8;
 
 import Interval.Interval;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class HW3Question8 {
     public static void main(String[] args) {
