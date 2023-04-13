@@ -18,14 +18,25 @@ import java.util.LinkedList;
 
 public class HW3Question10 {
     public static void main(String[] args) {
-        int numCourses = 4;
-        int[][] prerequisites = {{1,0},{2,0},{3,1},{3,2}};
+        int numCourses = 8;
+        int[][] prerequisites = {{1,0},{2,1},{7,5},{7,4},{6,7},{3,0},{7,3}};
 
-        System.out.println(getCourseOrder(numCourses, prerequisites));
+        int[] result = getCourseOrder(numCourses, prerequisites);
+
+        System.out.print("[");
+        for (int index = 0; index < result.length; index++) {
+            System.out.print(result[index]);
+
+            if (!(index == (result.length - 1))) {
+                System.out.print(",");
+            }
+        }
+        System.out.print("]");
     }
 
-    public static LinkedList<Integer> getCourseOrder(int numCourses, int[][] prerequisites) {
+    public static int[] getCourseOrder(int numCourses, int[][] prerequisites) {
         LinkedList<Integer> courseOrder = new LinkedList<>();
+        int[] result = new int[numCourses];
 
         // Initialize a HashMap with keys of course numbers and values of "unlocked" courses
         HashMap<Integer,LinkedList<Integer>> unlockMap = new HashMap<>(numCourses);
@@ -51,10 +62,20 @@ public class HW3Question10 {
             prerequisiteMap.get(followingCourse).add(prerequisiteCourse);
         }
 
+        // Check for a cycle in the adjacency list
+        if (detectCycle(unlockMap, numCourses)) {
+            return new int[0];
+        }
+
         // Take the courses in the correct order
         takeCourses(unlockMap, prerequisiteMap, courseOrder, numCourses);
 
-        return courseOrder;
+        // Convert LinkedList to int[]
+        for (int index = 0; index < courseOrder.size(); index++) {
+            result[index] = courseOrder.get(index);
+        }
+
+        return result;
     }
 
     public static void takeCourses(HashMap<Integer,LinkedList<Integer>> unlockMap,
@@ -79,5 +100,55 @@ public class HW3Question10 {
         if (courseOrder.size() < numCourses) {
             takeCourses(unlockMap, prerequisiteMap, courseOrder, numCourses);
         }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    //  The following two methods were obtained from: https://www.geeksforgeeks.org/detect-cycle-in-a-graph/.
+    //  Source cited in the Discussion and Analysis document.
+    //------------------------------------------------------------------------------------------------------------------
+
+    public static boolean detectCycle(HashMap<Integer,LinkedList<Integer>> graph, int numCourses) {
+        boolean[] visited = new boolean[numCourses];
+        boolean[] recStack = new boolean[numCourses];
+
+        // Call the recursive cycle detection function for each tree in the forest
+        for (int index = 0; index < numCourses; index++) {
+            if (componentDetectCycle(graph, index, visited, recStack)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean componentDetectCycle(HashMap<Integer,LinkedList<Integer>> graph, int index,
+                                                boolean[] visited, boolean[] recStack) {
+        // If the node cycles back (has already been marked in recStack), return true
+        if (recStack[index]) {
+            return true;
+        }
+
+        // If the node has already been visited (part of the same forest as previous check), return false
+        if (visited[index]) {
+            return false;
+        }
+
+        // Mark the current node as visited
+        visited[index] = true;
+
+        // Mark the current node in recStack
+        recStack[index] = true;
+
+        // Check all the adjacent nodes of the current node
+        for (int adjacency : graph.get(index)) {
+            if (componentDetectCycle(graph, adjacency, visited, recStack)) {
+                return true;
+            }
+        }
+
+        // Unmark the current node from recStack
+        recStack[index] = false;
+
+        return false;
     }
 }
